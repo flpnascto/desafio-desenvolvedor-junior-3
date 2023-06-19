@@ -6,7 +6,7 @@
     "build": "npx -y tsc",
     "prestart": "npm run build",
     "start": "node ./dist/server.js",
-    "dev": "tsnd ./src/server.ts",
+    "dev": "ts-node ./src/server.ts",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
