@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import userRouter from './router/user.router';
 
 export default class App {
   public app: express.Express;
@@ -7,8 +8,13 @@ export default class App {
     this.app = express();
 
     this.config();
+    this.routes();
 
     this.app.get('/', (req: Request, res: Response) => res.json({ ok: true }));
+  }
+
+  private routes(): void {
+    this.app.use('/register', userRouter);
   }
 
   private config(): void {
