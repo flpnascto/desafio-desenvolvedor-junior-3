@@ -14,6 +14,19 @@ class PostController {
     });
     return res.status(201).json(post);
   }
+
+  async update(req: Request, res: Response): Promise<Response | void> {
+    const { title, content } = req.body;
+    const { id } = req.params;
+    const userId = req.headers.id as string;
+    const post = await this.service.update({
+      id: parseInt(id),
+      title,
+      content,
+      authorId: parseInt(userId),
+    });
+    return res.status(200).json(post);
+  }
 }
 
 export default PostController;

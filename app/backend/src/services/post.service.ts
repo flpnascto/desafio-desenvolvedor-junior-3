@@ -9,6 +9,12 @@ class PostService {
 
     return newPost;
   }
+
+  async update(post: IPost): Promise<IPost> {
+    const updatedPost = await this.model.update(post);
+
+    return updatedPost;
+  }
 }
 
 export default PostService;

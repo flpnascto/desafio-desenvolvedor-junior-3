@@ -10,5 +10,6 @@ const postController = new PostController(postService);
 const postRouter = Router();
 
 postRouter.post('/', (req, res) => postController.create(req, res));
+postRouter.put('/:id', (req, res) => postController.update(req, res));
 
 export default postRouter;
