@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import userRouter from './router/user.router';
-import postRouter from './router/port.router';
+import postRouter from './router/post.router';
 
 export default class App {
   public app: express.Express;
