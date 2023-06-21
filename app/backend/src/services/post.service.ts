@@ -19,6 +19,12 @@ class PostService {
 
     return updatedPost;
   }
+
+  async removeById(id: string): Promise<boolean> {
+    const deletedPost = await this.model.removeById(id);
+
+    return deletedPost;
+  }
 }
 
 export default PostService;

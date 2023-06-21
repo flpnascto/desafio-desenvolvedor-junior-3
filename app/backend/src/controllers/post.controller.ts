@@ -33,6 +33,12 @@ class PostController {
     });
     return res.status(200).json(post);
   }
+
+  async removeById(req: Request, res: Response): Promise<Response | void> {
+    const { id } = req.params;
+    await this.service.removeById(id);
+    return res.status(204).end();
+  }
 }
 
 export default PostController;

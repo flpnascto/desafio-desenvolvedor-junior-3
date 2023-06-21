@@ -38,8 +38,14 @@ class PostModel implements IModel<IPost> {
     return updatedPost;
   }
 
-  removeById(_id: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async removeById(id: string): Promise<boolean> {
+    try {
+      await this.connection.post.delete({ where: { id: parseInt(id, 10) } });
+      return true;
+    } catch (error) {
+      console.error('Erro ao deletar o item:', error);
+    }
+    return false;
   }
 }
 
