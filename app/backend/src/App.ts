@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import userRouter from './router/user.router';
+import postRouter from './router/port.router';
 
 export default class App {
   public app: express.Express;
@@ -15,6 +16,7 @@ export default class App {
 
   private routes(): void {
     this.app.use('/register', userRouter);
+    this.app.use('/posts', postRouter);
   }
 
   private config(): void {
