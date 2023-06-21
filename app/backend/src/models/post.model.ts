@@ -1,9 +1,16 @@
 import { INewPost, IPost } from '../interfaces/IPost';
-import { IModelWriter } from './interfaces/IModel';
+import { IModel } from './interfaces/IModel';
 import prisma from './prisma.client';
 
-class PostModel implements IModelWriter<INewPost> {
+class PostModel implements IModel<IPost> {
   private connection = prisma;
+
+  getAll(): Promise<IPost[]> {
+    throw new Error('Method not implemented.');
+  }
+  getById(id: string): Promise<IPost | null> {
+    return this.connection.post.findUnique({ where: { id: parseInt(id, 10) } });
+  }
 
   async create(post: INewPost): Promise<IPost> {
     const { title, content, authorId } = post;
@@ -29,6 +36,10 @@ class PostModel implements IModelWriter<INewPost> {
     });
 
     return updatedPost;
+  }
+
+  removeById(_id: string): Promise<boolean> {
+    throw new Error('Method not implemented.');
   }
 }
 

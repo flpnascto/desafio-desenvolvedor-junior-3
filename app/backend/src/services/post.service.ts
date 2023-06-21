@@ -1,8 +1,12 @@
 import { INewPost, IPost } from '../interfaces/IPost';
-import { IModelWriter } from '../models/interfaces/IModel';
+import { IModel } from '../models/interfaces/IModel';
 
 class PostService {
-  constructor(private model: IModelWriter<IPost>) {}
+  constructor(private model: IModel<IPost>) {}
+
+  async getById(id: string): Promise<IPost | null> {
+    return this.model.getById(id);
+  }
 
   async create(post: INewPost): Promise<IPost> {
     const newPost = await this.model.create(post);

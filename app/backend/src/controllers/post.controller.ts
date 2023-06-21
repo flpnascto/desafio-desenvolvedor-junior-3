@@ -4,6 +4,12 @@ import PostService from '../services/post.service';
 class PostController {
   constructor(private service: PostService) {}
 
+  async getById(req: Request, res: Response): Promise<Response | void> {
+    const { id } = req.params;
+    const post = await this.service.getById(id);
+    return res.status(200).json(post);
+  }
+
   async create(req: Request, res: Response): Promise<Response | void> {
     const { title, content } = req.body;
     const userId = req.headers.id as string;
