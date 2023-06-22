@@ -1,4 +1,6 @@
 import BadRequestException from '../../exceptions/BadRequest';
+import ForbiddenException from '../../exceptions/Forbidden';
+import NotFoundException from '../../exceptions/NotFound';
 import { INewPost, IPost } from '../../interfaces/IPost';
 
 export default class PostValidate {
@@ -32,7 +34,7 @@ export default class PostValidate {
 
   private static validateCreator(author: number, dataBaseAuthor = -1): void {
     if (author !== dataBaseAuthor) {
-      throw new BadRequestException('You are not the creator of this post');
+      throw new ForbiddenException('You are not the creator of this post');
     }
   }
 
@@ -44,7 +46,7 @@ export default class PostValidate {
 
   static existPost(post: IPost | null): void {
     if (!post) {
-      throw new BadRequestException('Post does not exist');
+      throw new NotFoundException('Post does not exist');
     }
   }
 
