@@ -1,5 +1,6 @@
 import { INewPost, IPost } from '../interfaces/IPost';
 import { IModel } from '../models/interfaces/IModel';
+import PostValidate from './validations/PostValidate';
 
 class PostService {
   constructor(private model: IModel<IPost>) {}
@@ -23,6 +24,7 @@ class PostService {
   }
 
   async create(post: INewPost): Promise<IPost> {
+    PostValidate.validateNewPost(post);
     const newPost = await this.model.create(post);
 
     return newPost;
