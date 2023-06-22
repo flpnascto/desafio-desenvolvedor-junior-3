@@ -20,7 +20,9 @@ class PostService {
   }
 
   async getById(id: string): Promise<IPost | null> {
-    return this.model.getById(id);
+    const post = await this.model.getById(id);
+    PostValidate.existPost(post);
+    return post;
   }
 
   async create(post: INewPost): Promise<IPost> {
@@ -31,6 +33,8 @@ class PostService {
   }
 
   async update(post: IPost): Promise<IPost> {
+    const dataBasePost = await this.getById(post.id.toString());
+    PostValidate.validateUpdatePost(post, dataBasePost);
     const updatedPost = await this.model.update(post);
 
     return updatedPost;

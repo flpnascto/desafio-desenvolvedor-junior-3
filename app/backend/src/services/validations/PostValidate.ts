@@ -1,5 +1,5 @@
 import BadRequestException from '../../exceptions/BadRequest';
-import { INewPost } from '../../interfaces/IPost';
+import { INewPost, IPost } from '../../interfaces/IPost';
 
 export default class PostValidate {
   private static validateTitle(title: string): void {
@@ -30,9 +30,34 @@ export default class PostValidate {
     }
   }
 
+  private static validateCreator(author: number, dataBaseAuthor = -1): void {
+    if (author !== dataBaseAuthor) {
+      throw new BadRequestException('You are not the creator of this post');
+    }
+  }
+
+  private static validateId(id: number): void {
+    if (typeof id !== 'number') {
+      throw new BadRequestException('ID is required and must be a number');
+    }
+  }
+
+  static existPost(post: IPost | null): void {
+    if (!post) {
+      throw new BadRequestException('Post does not exist');
+    }
+  }
+
   static validateNewPost(post: INewPost): void {
     PostValidate.validateTitle(post.title);
     PostValidate.validateContent(post.content);
     PostValidate.validateAuthorId(post.authorId);
+  }
+
+  static validateUpdatePost(post: IPost, dataBasePost: IPost | null): void {
+    PostValidate.existPost(dataBasePost);
+    PostValidate.validateNewPost(post);
+    PostValidate.validateId(post.id);
+    PostValidate.validateCreator(post.authorId, dataBasePost?.authorId);
   }
 }
