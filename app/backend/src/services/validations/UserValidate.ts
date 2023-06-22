@@ -1,5 +1,6 @@
 import BadRequestException from '../../exceptions/BadRequest';
-import { INewUser } from '../../interfaces';
+import UnauthorizedException from '../../exceptions/Unauthorized';
+import { ILogin, INewUser, IUser } from '../../interfaces';
 
 export default class UserValidate {
   private static validateFirstName(firstName: string): void {
@@ -39,11 +40,27 @@ export default class UserValidate {
     if (typeof password !== 'string') {
       throw new BadRequestException('Password must be a string');
     }
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       throw new BadRequestException(
         'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter and one number'
       );
+    }
+  }
+
+  private static validateEmailAndPassword(
+    login: ILogin,
+    user: IUser | null
+  ): void {
+    if (!user) {
+      throw new UnauthorizedException('Invalid user');
+    }
+    if (login.email !== user.email) {
+      throw new UnauthorizedException('Invalid user');
+    }
+    if (login.password !== user.password) {
+      throw new BadRequestException('Invalid user');
     }
   }
 
@@ -52,5 +69,11 @@ export default class UserValidate {
     UserValidate.validateLastName(user.lastName);
     UserValidate.validateEmail(user.email);
     UserValidate.validatePassword(user.password);
+  }
+
+  static validateLogin(login: ILogin, user: IUser | null): void {
+    UserValidate.validateEmail(login.email);
+    UserValidate.validatePassword(login.password);
+    UserValidate.validateEmailAndPassword(login, user);
   }
 }

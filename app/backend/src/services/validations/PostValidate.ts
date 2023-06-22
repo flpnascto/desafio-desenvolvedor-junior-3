@@ -1,7 +1,7 @@
 import BadRequestException from '../../exceptions/BadRequest';
 import ForbiddenException from '../../exceptions/Forbidden';
 import NotFoundException from '../../exceptions/NotFound';
-import { INewPost, IPost } from '../../interfaces/IPost';
+import { INewPost, IPost } from '../../interfaces';
 
 export default class PostValidate {
   private static validateTitle(title: string): void {

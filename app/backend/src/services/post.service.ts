@@ -1,4 +1,4 @@
-import { INewPost, IPost } from '../interfaces/IPost';
+import { INewPost, IPost } from '../interfaces';
 import { IModel } from '../models/interfaces/IModel';
 import PostValidate from './validations/PostValidate';
 

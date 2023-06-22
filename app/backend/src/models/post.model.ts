@@ -1,4 +1,4 @@
-import { INewPost, IPost } from '../interfaces/IPost';
+import { INewPost, IPost } from '../interfaces';
 import { IModel } from './interfaces/IModel';
 import prisma from './prisma.client';
 

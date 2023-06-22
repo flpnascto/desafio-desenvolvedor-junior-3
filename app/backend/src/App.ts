@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import userRouter from './router/user.router';
 import postRouter from './router/post.router';
 import errorMiddleware from './middlewares/errorMiddleware';
+import loginRouter from './router/login.router';
 
 export default class App {
   public app: express.Express;
@@ -19,6 +20,7 @@ export default class App {
   private routes(): void {
     this.app.use('/register', userRouter);
     this.app.use('/posts', postRouter);
+    this.app.use('/login', loginRouter);
   }
 
   private config(): void {

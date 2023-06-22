@@ -12,6 +12,10 @@ export interface IModelDelete {
   removeById(id: string): Promise<boolean>;
 }
 
+type fieldTypes = string | number | boolean | Date;
+export interface IModelSearch<T> {
+  getByField(field: string, value: fieldTypes): Promise<T | null>;
+}
 export interface IModel<T>
   extends IModelReader<T>,
     IModelWriter<T>,

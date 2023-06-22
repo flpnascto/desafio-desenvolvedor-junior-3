@@ -1,25 +1,25 @@
 version: '3'
 
 services:
-  node:
-    build: .
-    user: node
-    container_name: blogs_api
-    command: dev
-    restart: always
-    volumes:
-      - .:/home/node/app
-    ports:
-      - 3001:3001
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      - APP_PORT=3001
-    healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3001"]
-      timeout: 10s
-      retries: 5
+  # node:
+  #   build: .
+  #   user: node
+  #   container_name: blogs_api
+  #   command: dev
+  #   restart: always
+  #   volumes:
+  #     - .:/home/node/app
+  #   ports:
+  #     - 3001:3001
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     - APP_PORT=3001
+  #   healthcheck:
+  #     test: ["CMD", "lsof", "-t", "-i:3001"]
+  #     timeout: 10s
+  #     retries: 5
   
   db:
     image: mysql:8.0.30

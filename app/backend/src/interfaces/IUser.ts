@@ -8,3 +8,5 @@ export interface IUser {
 }
 
 export type INewUser = Omit<IUser, 'id' | 'createdAt'>;
+
+export type IUserPayload = Omit<IUser, 'password'>;
