@@ -70,10 +70,18 @@ class PostController {
     }
   }
 
-  async removeById(req: Request, res: Response): Promise<Response | void> {
+  async removeById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
     const { id } = req.params;
-    await this.service.removeById(id);
-    return res.status(204).end();
+    try {
+      await this.service.removeById(id);
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

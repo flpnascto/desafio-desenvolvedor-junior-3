@@ -17,6 +17,8 @@ postRouter.post('/', (req, res, next) => postController.create(req, res, next));
 postRouter.put('/:id', (req, res, next) =>
   postController.update(req, res, next)
 );
-postRouter.delete('/:id', (req, res) => postController.removeById(req, res));
+postRouter.delete('/:id', (req, res, next) =>
+  postController.removeById(req, res, next)
+);
 
 export default postRouter;

@@ -41,6 +41,7 @@ class PostService {
   }
 
   async removeById(id: string): Promise<boolean> {
+    await this.getById(id);
     const deletedPost = await this.model.removeById(id);
 
     return deletedPost;
