@@ -4,6 +4,20 @@ import { IModel } from '../models/interfaces/IModel';
 class PostService {
   constructor(private model: IModel<IPost>) {}
 
+  async getAll(
+    filterByAuthor: boolean,
+    authorId: string,
+    order?: string
+  ): Promise<IPost[] | null> {
+    if (filterByAuthor && typeof this.model.getByAuthorId === 'function') {
+      const posts = await this.model.getByAuthorId(authorId, order);
+      return posts;
+    }
+
+    const posts = await this.model.getAll(order);
+    return posts;
+  }
+
   async getById(id: string): Promise<IPost | null> {
     return this.model.getById(id);
   }

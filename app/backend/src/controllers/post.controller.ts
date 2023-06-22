@@ -4,6 +4,18 @@ import PostService from '../services/post.service';
 class PostController {
   constructor(private service: PostService) {}
 
+  async getAll(req: Request, res: Response): Promise<Response | void> {
+    const { order, author } = req.query;
+    const filterByAuthor = author === 'true' ? true : false;
+    const authorId = req.headers.id as string;
+    const posts = await this.service.getAll(
+      filterByAuthor,
+      authorId,
+      order as string
+    );
+    return res.status(200).json(posts);
+  }
+
   async getById(req: Request, res: Response): Promise<Response | void> {
     const { id } = req.params;
     const post = await this.service.getById(id);

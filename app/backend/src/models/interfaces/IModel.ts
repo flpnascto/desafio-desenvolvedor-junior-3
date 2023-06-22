@@ -1,6 +1,7 @@
 export interface IModelReader<T> {
-  getAll(): Promise<T[]>;
+  getAll(order?: string): Promise<T[] | null>;
   getById(id: string): Promise<T | null>;
+  getByAuthorId?(authorId: string, order?: string): Promise<T[] | null>;
 }
 
 export interface IModelWriter<T> {

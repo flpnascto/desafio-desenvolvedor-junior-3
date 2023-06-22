@@ -5,11 +5,22 @@ import prisma from './prisma.client';
 class PostModel implements IModel<IPost> {
   private connection = prisma;
 
-  getAll(): Promise<IPost[]> {
-    throw new Error('Method not implemented.');
+  getAll(order?: string): Promise<IPost[]> {
+    const posts = this.connection.post.findMany({
+      orderBy: { updated: order === 'desc' ? 'desc' : 'asc' },
+    });
+    return posts;
   }
   getById(id: string): Promise<IPost | null> {
     return this.connection.post.findUnique({ where: { id: parseInt(id, 10) } });
+  }
+
+  getByAuthorId(authorId: string, order?: string): Promise<IPost[] | null> {
+    const posts = this.connection.post.findMany({
+      where: { authorId: parseInt(authorId, 10) },
+      orderBy: { updated: order === 'desc' ? 'desc' : 'asc' },
+    });
+    return posts;
   }
 
   async create(post: INewPost): Promise<IPost> {
