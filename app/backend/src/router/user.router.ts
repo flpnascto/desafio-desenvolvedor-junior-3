@@ -9,6 +9,6 @@ const userController = new UserController(userService);
 
 const userRouter = Router();
 
-userRouter.post('/', (req, res) => userController.create(req, res));
+userRouter.post('/', (req, res, next) => userController.create(req, res, next));
 
 export default userRouter;
