@@ -11,5 +11,10 @@ class Authentication {
     const token = jwt.sign(payload, JWT_SECRET, singOptions);
     return token;
   }
+
+  static validateToken(token: string): IUserPayload {
+    const payload = jwt.verify(token, JWT_SECRET) as IUserPayload;
+    return payload;
+  }
 }
 export default Authentication;
