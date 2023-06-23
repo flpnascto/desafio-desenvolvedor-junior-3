@@ -40,9 +40,10 @@ class PostService {
     return updatedPost;
   }
 
-  async removeById(id: string): Promise<boolean> {
-    await this.getById(id);
-    const deletedPost = await this.model.removeById(id);
+  async removeById(postId: string, userId: number): Promise<boolean> {
+    const post = await this.getById(postId);
+    PostValidate.validateDeletePost(userId, post?.authorId as number);
+    const deletedPost = await this.model.removeById(postId);
 
     return deletedPost;
   }

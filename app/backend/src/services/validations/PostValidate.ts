@@ -62,4 +62,8 @@ export default class PostValidate {
     PostValidate.validateId(post.id);
     PostValidate.validateCreator(post.authorId, dataBasePost?.authorId);
   }
+
+  static validateDeletePost(userId: number, id: number): void {
+    PostValidate.validateCreator(userId, id);
+  }
 }
