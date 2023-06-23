@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const post_controller_1 = __importDefault(require("../controllers/post.controller"));
+const post_service_1 = __importDefault(require("../services/post.service"));
+const post_model_1 = __importDefault(require("../models/post.model"));
+const authMiddleware_1 = __importDefault(require("../middlewares/authMiddleware"));
+const postModel = new post_model_1.default();
+const postService = new post_service_1.default(postModel);
+const postController = new post_controller_1.default(postService);
+const auth = new authMiddleware_1.default();
+const postRouter = (0, express_1.Router)();
+postRouter.get('/:id', auth.register, (req, res, next) => postController.getById(req, res, next));
+postRouter.get('/', auth.register, (req, res) => postController.getAll(req, res));
+postRouter.post('/', auth.register, (req, res, next) => postController.create(req, res, next));
+postRouter.put('/:id', auth.register, (req, res, next) => postController.update(req, res, next));
+postRouter.delete('/:id', auth.register, (req, res, next) => postController.removeById(req, res, next));
+exports.default = postRouter;
