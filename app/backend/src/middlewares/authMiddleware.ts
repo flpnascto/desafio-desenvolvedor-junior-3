@@ -10,7 +10,8 @@ class AuthMiddleware {
   ): Promise<void> {
     const token = req.headers.authorization;
     try {
-      Authentication.validateToken(token as string);
+      const payload = Authentication.validateToken(token as string);
+      req.body.auth = payload;
       next();
     } catch (error) {
       const err = new UnauthorizedException('Invalid token');

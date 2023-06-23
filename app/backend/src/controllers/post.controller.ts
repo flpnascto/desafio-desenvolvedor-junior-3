@@ -7,7 +7,7 @@ class PostController {
   async getAll(req: Request, res: Response): Promise<Response | void> {
     const { order, author } = req.query;
     const filterByAuthor = author === 'true' ? true : false;
-    const authorId = req.headers.id as string;
+    const authorId = req.body.auth.id as string;
     const posts = await this.service.getAll(
       filterByAuthor,
       authorId,
@@ -36,12 +36,12 @@ class PostController {
     next: NextFunction
   ): Promise<Response | void> {
     const { title, content } = req.body;
-    const userId = req.headers.id as string;
+    const userId = req.body.auth.id as number;
     try {
       const post = await this.service.create({
         title,
         content,
-        authorId: parseInt(userId),
+        authorId: userId,
       });
       return res.status(201).json(post);
     } catch (error) {
@@ -56,13 +56,13 @@ class PostController {
   ): Promise<Response | void> {
     const { title, content } = req.body;
     const { id } = req.params;
-    const userId = req.headers.id as string;
+    const userId = req.body.auth.id as number;
     try {
       const post = await this.service.update({
         id: parseInt(id),
         title,
         content,
-        authorId: parseInt(userId),
+        authorId: userId,
       });
       return res.status(200).json(post);
     } catch (error) {
@@ -76,8 +76,9 @@ class PostController {
     next: NextFunction
   ): Promise<Response | void> {
     const { id } = req.params;
+    const userId = req.body.auth.id as number;
     try {
-      await this.service.removeById(id);
+      await this.service.removeById(id, userId);
       return res.status(204).end();
     } catch (error) {
       next(error);
