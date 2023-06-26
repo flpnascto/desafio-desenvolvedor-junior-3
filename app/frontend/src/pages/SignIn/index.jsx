@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { View, Button, StyleSheet, TextInput } from "react-native";
+import { View, Button, StyleSheet, Text, TextInput, Pressable } from "react-native";
 import { AuthContext } from "../../contexts/auth";
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
   const { signIn } = useContext(AuthContext);
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -27,6 +27,15 @@ export default function SignIn() {
         secureTextEntry={true}
       />
       <Button title="Sign In" onPress={handleSign} />
+      <Text>
+        Don't have an account?
+        <Pressable
+          onPress={() => navigation.navigate('SignUp')}
+          style={{ padding: 10, marginBottom: 10, marginTop: 10 }}
+        >
+          <Text>Sign Up</Text>
+        </Pressable>
+      </Text>
     </View>
   );
 }

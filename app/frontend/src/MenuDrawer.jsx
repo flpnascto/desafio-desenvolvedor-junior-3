@@ -3,9 +3,10 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList, } from '@react-navigation/drawer';
-  import SignIn from './pages/SignIn';
 import { AuthContext } from "./contexts/auth";
 import Dashboard from './pages/Dashboard';
+import SignIn from './pages/SignIn';
+import SignUp from "./pages/SignUp";
 
 const Drawer = createDrawerNavigator();
 
@@ -30,7 +31,8 @@ export default function MenuDrawer() {
         </>
         ) : (
         <>
-          <Drawer.Screen name="Sing In" component={SignIn} />
+          <Drawer.Screen name="SignIn" component={SignIn} />
+          <Drawer.Screen name="SignUp" component={SignUp} />
         </>
         )}
     </Drawer.Navigator>
