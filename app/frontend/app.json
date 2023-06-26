@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "blog-react-native",
+    "slug": "blog-react-native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "blog-react-native"
+}
