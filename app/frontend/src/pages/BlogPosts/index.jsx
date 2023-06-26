@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, Button } from 'react-native';
 import postService from "../../services/post.service";
 
-export default function BlogPosts() {
+export default function BlogPosts({ navigation }) {
   const postsFilter = {
     author: false,
     order: 'asc',
@@ -43,8 +43,14 @@ export default function BlogPosts() {
       <View key={post.id}>
         <Text>{post.title}</Text>
         <Text>{post.content}</Text>
-        <Text>{post.updated}</Text>
-        <Text>{post.authorId}</Text>
+        <Button
+          title="Details"
+          onPress={() => { navigation.navigate('DetailsPost',
+            {
+              postInfo: {...post},
+            });
+          }}
+        />
       </View>
     );
   }
