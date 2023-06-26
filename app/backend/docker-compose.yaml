@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  # node:
+  #   build: .
+  #   user: node
+  #   container_name: blogs_api
+  #   command: dev
+  #   restart: always
+  #   volumes:
+  #     - .:/home/node/app
+  #   ports:
+  #     - 3001:3001
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     - APP_PORT=3001
+  #   healthcheck:
+  #     test: ["CMD", "lsof", "-t", "-i:3001"]
+  #     timeout: 10s
+  #     retries: 5
+  
+  db:
+    image: mysql:8.0.30
+    container_name: blogs_database
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports: 
+      - 3002:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blogs_api
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
