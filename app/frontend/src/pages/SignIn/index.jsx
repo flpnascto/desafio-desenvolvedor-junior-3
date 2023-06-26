@@ -1,4 +1,4 @@
-import React,  { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Button, StyleSheet, TextInput } from "react-native";
 import { AuthContext } from "../../contexts/auth";
 
