@@ -66,8 +66,27 @@ const create = (post) => {
   });
 }
 
-export default {
-  getAll,
-  create
+const update = (post) => {
+  const dateJS = new Date();
+  const timestamp = dateJS.getUTCFullYear() + '-' +
+    ('00' + (dateJS.getUTCMonth()+1)).slice(-2) + '-' +
+    ('00' + dateJS.getUTCDate()).slice(-2) + ' ' + 
+    ('00' + dateJS.getUTCHours()).slice(-2) + ':' + 
+    ('00' + dateJS.getUTCMinutes()).slice(-2) + ':' + 
+    ('00' + dateJS.getUTCSeconds()).slice(-2);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      post.id = posts.length + 1;
+      post.published = true;
+      post.created = "2023-06-26T20:10:47.103Z";
+      post.updated = timestamp;
+      resolve(post);
+    }, 2000);
+  });
 }
 
+export default {
+  getAll,
+  create,
+  update
+}

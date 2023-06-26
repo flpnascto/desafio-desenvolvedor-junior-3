@@ -51,6 +51,14 @@ export default function BlogPosts({ navigation }) {
             });
           }}
         />
+        <Button
+          title="Update"
+          onPress={() => { navigation.navigate('UpdatePost',
+            {
+              postInfo: {...post},
+            });
+          }}
+        />
       </View>
     );
   }
