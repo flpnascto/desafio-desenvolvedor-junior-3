@@ -45,8 +45,6 @@ const getAll = (filterOptions) => {
     });
   }
 
-
-
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(posts);
@@ -54,7 +52,22 @@ const getAll = (filterOptions) => {
   });
 }
 
+const create = (post) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      post.id = posts.length + 1;
+      post.published = true;
+      post.created = "2023-06-26T20:10:47.103Z";
+      post.updated = "2023-06-26T20:10:47.103Z";
+      post.authorId = 2;
+      posts.push(post)
+      resolve(post);
+    }, 2000);
+  });
+}
+
 export default {
-  getAll
+  getAll,
+  create
 }
 

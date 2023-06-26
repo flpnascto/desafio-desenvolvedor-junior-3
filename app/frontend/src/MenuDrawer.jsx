@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn';
 import SignUp from "./pages/SignUp";
 import BlogPosts from "./pages/BlogPosts";
 import DetailsPost from "./pages/BlogPosts/details.post";
+import CreatePost from "./pages/BlogPosts/create.post";
 
 const Drawer = createDrawerNavigator();
 
@@ -37,6 +38,7 @@ export default function MenuDrawer() {
               drawerItemStyle: { display: 'none' }
             }}
           />
+          <Drawer.Screen name="CreatePost" component={CreatePost} />
           <Drawer.Screen name="Dashboard" component={Dashboard} />
         </>
         ) : (
