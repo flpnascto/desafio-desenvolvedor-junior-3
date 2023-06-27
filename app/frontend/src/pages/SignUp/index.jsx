@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { View, Button, StyleSheet, Text, TextInput } from "react-native";
+import {
+  View, Button, StyleSheet, Text, TextInput, Pressable
+} from "react-native";
 import registerService from "../../services/register.service";
 
 export default function SignUp() {
@@ -7,6 +9,7 @@ export default function SignUp() {
   const [ lastName, setLastName ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
+  const [ fetchSuccess, setFetchSuccess ] = useState(false);
   const [message, setMessage] = useState('');
 
   const enabled =
@@ -16,11 +19,11 @@ export default function SignUp() {
     password.length > 0;
 
   async function handleRegister() {
-    const response = await registerService.register(firstName, lastName, email, password);
-    if (response.success) {
-      setMessage(response.message);
-    }
+    const response = await registerService.register({firstName, lastName, email, password});
+    setFetchSuccess(response.success);
+    setMessage(response.message);
   }
+
 
   return (
     <View style={styles.container}>
@@ -52,9 +55,12 @@ export default function SignUp() {
         secureTextEntry={true}
       />
       <Button title="Sign Up" onPress={handleRegister} disabled={!enabled}/>
-      { message ?
-        (<Text onPress={() => navigation.navigate('SignUp')}>{message}</Text>)
-        : (<></>)
+      <Text>{message}</Text>
+      { fetchSuccess ?
+        (<Pressable onPress={() => navigation.navigate('SignUp')}>
+          <Text>Realize o login para acessar o Blog</Text>
+        </Pressable>)
+        : null
       }
     </View>
   );
