@@ -6,6 +6,7 @@ WORKDIR /home/node/app
 COPY --chown=node:node package*.json ./
 RUN npm install
 COPY --chown=node:node src src
+COPY --chown=node:node prisma prisma
 COPY --chown=node:node .eslintrc.json ./
 COPY --chown=node:node tsconfig.json ./
 ENTRYPOINT [ "npm", "run" ]
