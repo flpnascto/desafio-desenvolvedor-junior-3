@@ -4,13 +4,14 @@ import authService from "../services/auth.service";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [signed, setSigned] = useState(false);
 
-  async function signIn() {
-    const response = await authService.signIn();
-    // setUser(response.user);
+  async function signIn(login) {
+    const response = await authService.signIn(login);
+    if (response.message) {
+      return response.message;
+    }
     setToken(response.token);
     setSigned(true);
   }
@@ -18,7 +19,6 @@ export const AuthProvider = ({ children }) => {
   const authInitialValues = {
     signed,
     token,
-    // user
     signIn
   }
 

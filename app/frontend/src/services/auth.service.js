@@ -1,11 +1,19 @@
-const signIn = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        token: "jk12h3j21h3jk212h3jk12h3jkh12j3kh12k123hh21g3f12f3",
-      });
-    }, 2000);
-  });
+import axios from 'axios';
+import { API_ENDPOINTS } from './utils';
+
+const signIn = async (login) => {
+  const options = {
+    method: 'post',
+    url: API_ENDPOINTS.LOGIN,
+    data: {...login},
+  };
+
+  try {
+    const request = await axios(options)
+    return { token: request.data.token }
+  } catch (error) {
+    return { ...error.response.data }
+  }
 }
 
 export default {

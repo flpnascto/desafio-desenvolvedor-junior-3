@@ -6,10 +6,12 @@ export default function SignIn({ navigation }) {
   const { signIn } = useContext(AuthContext);
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
+  const [message, setMessage] = useState('');
 
-  function handleSign() {
-    signIn();
-  }
+  async function handleSign() {
+    const errorMessage = await signIn({ email, password});
+    setMessage(errorMessage);
+  };
 
   return (
     <View style={styles.container}>
@@ -27,6 +29,7 @@ export default function SignIn({ navigation }) {
         secureTextEntry={true}
       />
       <Button title="Sign In" onPress={handleSign} />
+      <Text>{message}</Text>
       <Text>
         Don't have an account?
         <Pressable
