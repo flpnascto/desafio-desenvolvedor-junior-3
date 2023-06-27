@@ -1,12 +1,11 @@
 import axios from 'axios';
-
-const baseUrl = 'http://localhost:3001';
+import { API_ENDPOINTS } from './utils';
 
 const register = async (newUser) => {
   const { firstName, lastName, email, password } = newUser;
   const options = {
     method: 'post',
-    url: `${baseUrl}/register`,
+    url: API_ENDPOINTS.REGISTER,
     data: {...newUser},
   };
 
